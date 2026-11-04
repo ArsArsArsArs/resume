@@ -1,0 +1,1098 @@
+/* === Shared theming on top of Pico.css === */
+:root {
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --accent-soft: rgba(13, 148, 136, 0.12);
+  --card-border: color-mix(in srgb, var(--accent) 28%, transparent);
+  --hero-grad: linear-gradient(135deg, rgba(13, 148, 136, 0.14), rgba(13, 148, 136, 0.02) 60%);
+  --chip-bg: var(--accent-soft);
+  --chip-fg: var(--accent);
+  --radius: 1rem;
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"],
+:root:not([data-theme="light"]) {
+  --shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > main {
+  flex: 1;
+}
+
+/* Theme accents per page */
+body.page-home {
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-soft: rgba(99, 102, 241, 0.14);
+  --hero-grad: linear-gradient(135deg, rgba(99, 102, 241, 0.16), rgba(20, 184, 166, 0.08) 55%, transparent);
+}
+
+body.page-teacher {
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --accent-soft: rgba(13, 148, 136, 0.14);
+  --hero-grad: linear-gradient(145deg, rgba(245, 158, 11, 0.12), rgba(13, 148, 136, 0.14) 45%, transparent);
+}
+
+body.page-sysadmin {
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --accent-soft: rgba(34, 197, 94, 0.14);
+  --hero-grad: linear-gradient(145deg, rgba(34, 197, 94, 0.12), rgba(15, 23, 42, 0.04) 50%, transparent);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* Header / nav */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--pico-background-color, #fff) 82%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  margin-bottom: 0;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.65rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+}
+
+.brand:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.78;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.15rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  opacity: 1;
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.theme-toggle {
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* Hero */
+.hero {
+  background: var(--hero-grad);
+  border: 1px solid var(--card-border);
+  border-radius: calc(var(--radius) + 0.25rem);
+  padding: 2rem 1.5rem;
+  margin: 1.5rem 0 2rem;
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.hero .tagline {
+  font-size: 1.1rem;
+  opacity: 0.88;
+  margin-bottom: 1rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+/* Terminal-style header for sysadmin */
+.term-line {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin: 0 0 0.75rem;
+  opacity: 0.95;
+}
+
+.term-line .prompt {
+  opacity: 0.7;
+}
+
+.term-line .cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 0.15rem;
+  vertical-align: text-bottom;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Cards / experience */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .card-grid.cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.exp-card,
+.switch-card {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.35rem;
+  background: color-mix(in srgb, var(--pico-card-background-color, var(--pico-background-color, #fff)) 92%, var(--accent) 8%);
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.exp-card:hover,
+.switch-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.exp-card h3,
+.switch-card h2 {
+  margin-bottom: 0.35rem;
+  color: var(--accent);
+}
+
+.exp-card .role {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.exp-card ul {
+  margin-bottom: 0;
+  padding-left: 1.15rem;
+}
+
+.switch-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.switch-card:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.switch-card .cta {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.switch-card.teacher-card {
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --accent-soft: rgba(13, 148, 136, 0.14);
+  --card-border: color-mix(in srgb, #0d9488 30%, transparent);
+}
+
+.switch-card.sysadmin-card {
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --accent-soft: rgba(34, 197, 94, 0.14);
+  --card-border: color-mix(in srgb, #22c55e 30%, transparent);
+}
+
+/* Skill chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips li::marker,
+.hero-meta li::marker,
+.nav-links li::marker {
+  content: none;
+}
+
+
+.chips li {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* Contacts */
+.contacts {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+  .contacts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.contact-item {
+  border: 1px dashed color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background: var(--accent-soft);
+}
+
+.contact-item strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.contact-item a {
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 3rem;
+  padding: 1.25rem 0 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  opacity: 0.75;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Intro on home */
+.lead {
+  font-size: 1.05rem;
+  max-width: 42rem;
+}
+
+/* Print */
+@media print {
+  .site-header,
+  .theme-toggle,
+  .site-footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .hero,
+  .exp-card,
+  .switch-card,
+  .contact-item {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  .chips li {
+    border: 1px solid #999 !important;
+    color: #000 !important;
+    background: #f5f5f5 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header nav {
+    flex-wrap: wrap;
+    row-gap: 0.55rem;
+  }
+
+  .brand {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.5rem 0.9rem;
+  }
+
+  .hero {
+    padding: 1.35rem 1.1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* hide list bullets on chip rows */
+ul.chips > li, ul.hero-meta > li { list-style: none !important; }
+ul.chips > li::before, ul.hero-meta > li::before,
+ul.chips > li::marker, ul.hero-meta > li::marker { content: none !important; display: none !important; }
+
+/* ============================================================
+   Distinctive page personalities (progressive enhancement)
+   Reveal starts HIDDEN only when html.js + .reveal are set by JS.
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Scroll reveal (JS adds .reveal; without JS content stays visible) --- */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+html.js.page-sysadmin-js .reveal-boot {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  filter: brightness(0.85);
+  transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease, box-shadow 0.45s ease;
+}
+
+html.js.page-sysadmin-js .reveal-boot.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+html.js.page-teacher-js .reveal-slide {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+html.js.page-teacher-js .reveal-slide.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal,
+  html.js .reveal-boot,
+  html.js .reveal-slide {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===================== HOME ===================== */
+body.page-home {
+  background-image:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(99, 102, 241, 0.18), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 95% 10%, rgba(20, 184, 166, 0.14), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(99, 102, 241, 0.08), transparent 55%);
+  background-attachment: fixed;
+}
+
+body.page-home .switch-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 11rem;
+}
+
+body.page-home .switch-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    transparent 0deg,
+    color-mix(in srgb, var(--accent) 35%, transparent) 60deg,
+    transparent 140deg,
+    color-mix(in srgb, var(--accent) 25%, transparent) 220deg,
+    transparent 360deg
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.8s ease;
+  transform: rotate(0deg) scale(1);
+}
+
+body.page-home .switch-card:hover::before,
+body.page-home .switch-card:focus-visible::before {
+  opacity: 1;
+  transform: rotate(25deg) scale(1.05);
+}
+
+body.page-home .switch-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 18%, transparent),
+    transparent 55%
+  );
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+}
+
+body.page-home .switch-card:hover::after,
+body.page-home .switch-card:focus-visible::after {
+  opacity: 1;
+}
+
+body.page-home .switch-card .cta {
+  transition: transform 0.25s ease, letter-spacing 0.25s ease;
+}
+
+body.page-home .switch-card:hover .cta {
+  transform: translateX(4px);
+  letter-spacing: 0.02em;
+}
+
+body.page-home .teacher-card {
+  background:
+    linear-gradient(160deg, rgba(13, 148, 136, 0.1), rgba(245, 158, 11, 0.06) 60%, transparent),
+    color-mix(in srgb, var(--pico-card-background-color, #fff) 94%, #0d9488 6%);
+}
+
+body.page-home .sysadmin-card {
+  background:
+    linear-gradient(160deg, rgba(34, 197, 94, 0.12), rgba(15, 23, 42, 0.04) 60%, transparent),
+    color-mix(in srgb, var(--pico-card-background-color, #fff) 94%, #22c55e 6%);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-home .switch-card::before {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+}
+
+/* ===================== TEACHER — notebook ===================== */
+body.page-teacher {
+  --paper-line: rgba(13, 148, 136, 0.12);
+  --paper-margin: rgba(239, 68, 68, 0.22);
+  background-color: #f7f3ea;
+  background-image:
+    linear-gradient(90deg, transparent 0, transparent calc(2.5rem - 1px), var(--paper-margin) calc(2.5rem - 1px), var(--paper-margin) 2.5rem, transparent 2.5rem),
+    repeating-linear-gradient(
+      transparent,
+      transparent 1.65rem,
+      var(--paper-line) 1.65rem,
+      var(--paper-line) calc(1.65rem + 1px)
+    );
+  background-attachment: local;
+}
+
+[data-theme="dark"] body.page-teacher,
+body.page-teacher[data-theme="dark"] {
+  /* theme is on html; body inherits visually via pico — keep paper soft in dark via overlay */
+}
+
+html[data-theme="dark"] body.page-teacher {
+  --paper-line: rgba(45, 212, 191, 0.1);
+  --paper-margin: rgba(248, 113, 113, 0.18);
+  background-color: #1a1f1c;
+}
+
+body.page-teacher .hero {
+  background:
+    linear-gradient(145deg, rgba(245, 158, 11, 0.14), rgba(13, 148, 136, 0.1) 50%, #fffef8 100%);
+  border: 1px solid rgba(13, 148, 136, 0.22);
+  box-shadow: 0 10px 28px rgba(13, 148, 136, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  position: relative;
+}
+
+html[data-theme="dark"] body.page-teacher .hero {
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.12), rgba(13, 148, 136, 0.14) 45%, rgba(30, 41, 36, 0.9));
+}
+
+body.page-teacher .exp-card {
+  background: #fffef9;
+  border: 1px solid rgba(13, 148, 136, 0.2);
+  box-shadow: 2px 3px 0 rgba(13, 148, 136, 0.08);
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+html[data-theme="dark"] body.page-teacher .exp-card {
+  background: color-mix(in srgb, #1e2924 92%, #0d9488 8%);
+}
+
+body.page-teacher .exp-card:hover {
+  transform: rotate(-0.6deg) translateY(-3px);
+  box-shadow: 4px 8px 18px rgba(13, 148, 136, 0.16);
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-teacher .exp-card:hover {
+    transform: none;
+  }
+}
+
+/* Marker highlight */
+.marker {
+  background: linear-gradient(transparent 58%, rgba(250, 204, 21, 0.55) 58%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.1em;
+}
+
+.marker-teal {
+  background: linear-gradient(transparent 58%, rgba(45, 212, 191, 0.45) 58%);
+}
+
+/* Green pen check motif */
+.green-pen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #15803d;
+  font-weight: 700;
+}
+
+.green-pen svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  vertical-align: -0.15em;
+}
+
+body.page-teacher .chips li:nth-child(7) {
+  border-color: rgba(22, 163, 74, 0.45);
+  color: #15803d;
+  background: rgba(34, 197, 94, 0.12);
+}
+
+body.page-teacher .section-title::before {
+  content: "✓";
+  color: #16a34a;
+  font-weight: 700;
+  margin-right: 0.15rem;
+}
+
+body.page-teacher .hand-underline {
+  position: relative;
+  display: inline;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='8' viewBox='0 0 120 8' fill='none'%3E%3Cpath d='M1 5.5C20 2 40 7 60 4.5C80 2 100 6.5 119 3.5' stroke='%230d9488' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 7.5rem 0.5rem;
+  padding-bottom: 0.2rem;
+}
+
+/* ===================== SYSADMIN — terminal / CRT ===================== */
+body.page-sysadmin {
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  background-color: #0b1220;
+  color: #e2e8f0;
+  background-image:
+    linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.12), transparent 55%);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+  background-attachment: fixed;
+}
+
+body.page-sysadmin::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 3px
+  );
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-sysadmin::before {
+    display: none;
+  }
+}
+
+body.page-sysadmin .site-header {
+  background: rgba(11, 18, 32, 0.88);
+  border-bottom-color: rgba(34, 197, 94, 0.25);
+}
+
+body.page-sysadmin .brand,
+body.page-sysadmin .nav-links a {
+  color: #e2e8f0;
+}
+
+body.page-sysadmin .nav-links a:hover,
+body.page-sysadmin .nav-links a[aria-current="page"] {
+  color: #4ade80;
+}
+
+body.page-sysadmin .hero {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.08), 0 0 40px rgba(34, 197, 94, 0.08);
+  font-family: var(--font-mono);
+}
+
+body.page-sysadmin .hero h1 {
+  font-family: var(--font-family);
+  color: #f8fafc;
+}
+
+body.page-sysadmin .hero .tagline,
+body.page-sysadmin .hero .lead {
+  font-family: var(--font-family);
+  color: #cbd5e1;
+}
+
+body.page-sysadmin .term-block {
+  margin-bottom: 0.85rem;
+  min-height: 4.5rem;
+}
+
+body.page-sysadmin .term-line {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: #4ade80;
+  margin: 0 0 0.35rem;
+}
+
+body.page-sysadmin .term-out {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: #86efac;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  opacity: 0.95;
+}
+
+body.page-sysadmin .term-line .cursor,
+body.page-sysadmin .term-cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1em;
+  background: #4ade80;
+  margin-left: 0.1rem;
+  vertical-align: text-bottom;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+body.page-sysadmin .badge {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+body.page-sysadmin .chips li {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  background: rgba(34, 197, 94, 0.1);
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+body.page-sysadmin .section-title {
+  font-family: var(--font-mono);
+  color: #4ade80;
+  font-size: 1.05rem;
+}
+
+body.page-sysadmin .section-title::before {
+  content: "> ";
+  opacity: 0.7;
+}
+
+body.page-sysadmin .section-title::after {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+body.page-sysadmin .exp-card {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(34, 197, 94, 0.28);
+  color: #e2e8f0;
+  box-shadow: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+body.page-sysadmin .exp-card h3 {
+  font-family: var(--font-mono);
+  color: #4ade80;
+}
+
+body.page-sysadmin .exp-card .role {
+  color: #94a3b8;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+body.page-sysadmin .exp-card:hover {
+  border-color: #4ade80;
+  box-shadow: 0 0 24px rgba(34, 197, 94, 0.22), inset 0 0 20px rgba(34, 197, 94, 0.04);
+  transform: translateY(-2px);
+}
+
+body.page-sysadmin .contact-item {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: #e2e8f0;
+}
+
+body.page-sysadmin .contact-item a {
+  color: #86efac;
+}
+
+body.page-sysadmin .site-footer {
+  border-top-color: rgba(34, 197, 94, 0.2);
+  color: #94a3b8;
+}
+
+body.page-sysadmin .theme-toggle {
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+/* Light override: if user forces light theme on sysadmin, soften CRT */
+html[data-theme="light"] body.page-sysadmin {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  background-image:
+    linear-gradient(rgba(22, 163, 74, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 163, 74, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px;
+}
+
+html[data-theme="light"] body.page-sysadmin::before {
+  opacity: 0.12;
+}
+
+html[data-theme="light"] body.page-sysadmin .site-header {
+  background: rgba(241, 245, 249, 0.9);
+}
+
+html[data-theme="light"] body.page-sysadmin .brand,
+html[data-theme="light"] body.page-sysadmin .nav-links a {
+  color: #0f172a;
+}
+
+html[data-theme="light"] body.page-sysadmin .hero,
+html[data-theme="light"] body.page-sysadmin .exp-card {
+  background: #fff;
+  color: #0f172a;
+}
+
+html[data-theme="light"] body.page-sysadmin .hero h1 {
+  color: #0f172a;
+}
+
+html[data-theme="light"] body.page-sysadmin .hero .tagline,
+html[data-theme="light"] body.page-sysadmin .hero .lead {
+  color: #334155;
+}
+
+/* Print: kill effects */
+@media print {
+  body.page-teacher,
+  body.page-sysadmin,
+  body.page-home {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  body.page-sysadmin::before {
+    display: none !important;
+  }
+  html.js .reveal,
+  html.js .reveal-boot,
+  html.js .reveal-slide {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+body.page-home .contacts {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) {
+  body.page-home .contacts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Readable body text inside sysadmin cards */
+body.page-sysadmin .exp-card p,
+body.page-sysadmin .exp-card li,
+body.page-sysadmin .exp-card ul {
+  color: #cbd5e1;
+}
+body.page-sysadmin .exp-card li::marker { color: #4ade80; }
+
+/* ===================== TEACHER — MGPU red palette ===================== */
+body.page-teacher {
+  --accent: #b3132b;
+  --accent-hover: #8e0f22;
+  --accent-soft: rgba(179, 19, 43, 0.1);
+  --chip-fg: #a3122a;
+  --card-border: rgba(179, 19, 43, 0.25);
+  --hero-grad: linear-gradient(145deg, rgba(179, 19, 43, 0.12), rgba(179, 19, 43, 0.03) 50%, transparent);
+  --paper-line: rgba(179, 19, 43, 0.09);
+  --paper-margin: rgba(179, 19, 43, 0.3);
+  background-color: #faf5f2;
+}
+html[data-theme="dark"] body.page-teacher {
+  --accent: #f0566b;
+  --accent-hover: #f7808f;
+  --chip-fg: #f58a98;
+  --paper-line: rgba(240, 86, 107, 0.09);
+  --paper-margin: rgba(240, 86, 107, 0.25);
+  background-color: #1e1517;
+}
+body.page-teacher .hero {
+  background: linear-gradient(145deg, rgba(179, 19, 43, 0.12), rgba(179, 19, 43, 0.04) 50%, #fffaf8 100%);
+  border-color: rgba(179, 19, 43, 0.22);
+  box-shadow: 0 10px 28px rgba(179, 19, 43, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+html[data-theme="dark"] body.page-teacher .hero {
+  background: linear-gradient(145deg, rgba(240, 86, 107, 0.16), rgba(40, 24, 27, 0.95) 60%);
+}
+body.page-teacher .exp-card {
+  background: #fffcfa;
+  border-color: rgba(179, 19, 43, 0.18);
+  box-shadow: 2px 3px 0 rgba(179, 19, 43, 0.08);
+}
+html[data-theme="dark"] body.page-teacher .exp-card {
+  background: #261a1c;
+}
+body.page-teacher .exp-card:hover {
+  box-shadow: 4px 8px 18px rgba(179, 19, 43, 0.16);
+}
+body.page-teacher .section-title::before { color: var(--accent); }
+body.page-teacher .marker-teal {
+  background: linear-gradient(transparent 58%, rgba(179, 19, 43, 0.22) 58%);
+}
+body.page-teacher .hand-underline {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='8' viewBox='0 0 120 8' fill='none'%3E%3Cpath d='M1 5.5C20 2 40 7 60 4.5C80 2 100 6.5 119 3.5' stroke='%23b3132b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+body.page-home .teacher-card {
+  --accent: #b3132b;
+  --accent-hover: #8e0f22;
+  --chip-fg: #a3122a;
+  --card-border: rgba(179, 19, 43, 0.3);
+  background:
+    linear-gradient(160deg, rgba(179, 19, 43, 0.1), rgba(179, 19, 43, 0.02) 60%, transparent),
+    color-mix(in srgb, var(--pico-card-background-color, #fff) 94%, #b3132b 6%);
+}
+
+/* ===== Skill hover tips (CSS-only, keyboard focus too) ===== */
+ul.skill-tips { overflow: visible; }
+ul.skill-tips > li.tip { position: relative; cursor: help; outline: none; }
+ul.skill-tips > li.tip::after {
+  content: attr(data-tip) !important;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: 16rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  font-family: var(--font-family);
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+  color: #fff;
+  background: #2b1b1e;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, 4px);
+  transform: translate(-50%, 4px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  z-index: 20;
+}
+ul.skill-tips > li.tip:hover::after,
+ul.skill-tips > li.tip:focus::after {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+body.page-teacher ul.skill-tips > li.tip::after { background: #7d0e1f; }
+body.page-sysadmin ul.skill-tips > li.tip::after {
+  background: #07130c;
+  color: #bbf7d0;
+  border: 1px solid rgba(74, 222, 128, 0.45);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-reduced-motion: reduce) {
+  ul.skill-tips > li.tip::after { transition: none; }
+}
