@@ -245,3 +245,29 @@
   setupReveal();
   setupTerminal();
 })();
+
+/* Keep skill tips inside the viewport */
+(function () {
+  var tips = document.querySelectorAll('ul.skill-tips > li.tip');
+  if (!tips.length) return;
+  function place(el) {
+    var vw = document.documentElement.clientWidth || window.innerWidth;
+    var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var w = Math.min(16 * rem, vw - 24);
+    var r = el.getBoundingClientRect();
+    var center = r.left + r.width / 2;
+    var left = center - w / 2;
+    var shift = 0;
+    if (left < 12) shift = 12 - left;
+    else if (left + w > vw - 12) shift = (vw - 12) - (left + w);
+    el.style.setProperty('--tip-x', shift + 'px');
+  }
+  for (var i = 0; i < tips.length; i++) {
+    (function (el) {
+      var h = function () { place(el); };
+      el.addEventListener('mouseenter', h);
+      el.addEventListener('focus', h);
+      el.addEventListener('touchstart', h, { passive: true });
+    })(tips[i]);
+  }
+})();

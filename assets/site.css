@@ -1096,3 +1096,19 @@ body.page-sysadmin ul.skill-tips > li.tip::after {
 @media (prefers-reduced-motion: reduce) {
   ul.skill-tips > li.tip::after { transition: none; }
 }
+
+/* ===== Mobile fixes: no horizontal overflow, tips stay on screen ===== */
+html, body { overflow-x: hidden; }
+@supports (overflow-x: clip) {
+  html, body { overflow-x: clip; }
+}
+ul.skill-tips > li.tip::after {
+  max-width: min(16rem, calc(100vw - 24px));
+  -webkit-transform: translate(calc(-50% + var(--tip-x, 0px)), 4px);
+  transform: translate(calc(-50% + var(--tip-x, 0px)), 4px);
+}
+ul.skill-tips > li.tip:hover::after,
+ul.skill-tips > li.tip:focus::after {
+  -webkit-transform: translate(calc(-50% + var(--tip-x, 0px)), 0);
+  transform: translate(calc(-50% + var(--tip-x, 0px)), 0);
+}
