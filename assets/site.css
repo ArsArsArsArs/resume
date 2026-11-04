@@ -1112,3 +1112,11 @@ ul.skill-tips > li.tip:focus::after {
   -webkit-transform: translate(calc(-50% + var(--tip-x, 0px)), 0);
   transform: translate(calc(-50% + var(--tip-x, 0px)), 0);
 }
+
+/* Photo inside the avatar circle (initials stay underneath as fallback) */
+.avatar { position: relative; overflow: hidden; }
+.avatar img {
+  position: absolute; inset: 0; top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; border-radius: 50%; display: block;
+}
